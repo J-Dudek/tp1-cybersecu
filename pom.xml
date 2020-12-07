@@ -63,7 +63,7 @@
 					<to>
 						<image>registry.hub.docker.com/julienm1/tp1</image>
 						<tags>
-							<tag>${project.version}</tag>
+							<!--<tag>${project.version}</tag> -->
 							<tag>latest</tag>
 						</tags>
 					</to>
