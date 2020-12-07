@@ -47,6 +47,33 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>0.10.1</version>
+				<configuration>
+					<from>
+						<image>openjdk:11-jdk-slim</image>
+					</from>
+					<to>
+						<image>registry.hub.docker.com/julienm1/tp1</image>
+						<tags>
+							<tag>${project.version}</tag>
+							<tag>latest</tag>
+						</tags>
+					</to>
+					<container>
+						<ports>
+							<port>8282</port>
+						</ports>
+					</container>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

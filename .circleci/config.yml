@@ -1,0 +1,43 @@
+version: 2.1
+workflows:
+  build_and_dock:
+    jobs:
+      - build
+      - dock:
+          context: Perso
+          requires:
+            - build
+
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:latest
+    working_directory: ~/tp1-cybersecurite
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - tp1-secu-{{ checksum "pom.xml" }}
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: tp1-secu-{{ checksum "pom.xml" }}
+      # package into a jar
+      - run: mvn clean install
+      - run: mvn clean package
+        # store raw contents of src code
+      - store_artifacts:
+          path: target/classes
+          destination: tp1-cybersecurite
+  dock:
+    docker:
+      - image: circleci/openjdk:latest
+    working_directory: ~/tp1-cybersecurite
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - tp1-secu-{{ checksum "pom.xml" }}
+      # build and push docker image to docker hub
+      - run: mvn compile jib:build -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
