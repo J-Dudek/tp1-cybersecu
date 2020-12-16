@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,6 +32,10 @@ public class User {
     @ManyToMany(mappedBy = "users")
     @JsonIgnoreProperties("users")
     private List<Book> books;
+
+    public User(){
+        this.books = new ArrayList();
+    }
 
     public Integer getId() {
         return id;
