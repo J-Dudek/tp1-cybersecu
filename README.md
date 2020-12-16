@@ -1,5 +1,14 @@
 # TP cybersécurité M1 S1
 
+## Comment tester l'API ?
+- `https://github.com/J-Dudek/tp1-cybersecu.git`
+- `gh repo clone J-Dudek/tp1-cybersecu`
+#### OU
+- `docker run -it -p 8282:8282  julienm1/tp1-cybersecurite:latest`
+#### Ensuite ?
+Après avoir lancé l'application :
+- Se rendre sur http://localhost:8282/swagger-ui.html , vous aurez alors accès aux différentes fonctionnalités de l'API.
+
 ## SUJET
 > ---
 >
