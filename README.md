@@ -13,7 +13,7 @@ Lors de l'authentification  sur `/users/signin` un filtre est effectué et un `t
 
 Pour devenir utilisateur: se rendre sur `/users/signup` .
 
-----
+### Scenario
 Un utilisateur peut: 
 - consulter la liste de livre de la bibliotèque.
 - affecter à sa collection un livre existant dans la bibliothèque.
@@ -26,9 +26,8 @@ Un administrateur peut:
 - créer, supprimer des livres dans la bibliothèque.
 - autres fonctions à venir.
 
-Toutes les fonctionnalités ne sont pas encore implémentées:  🚧.
+ 🚧 Toutes les fonctionnalités ne sont pas encore implémentées:  🚧.
 
-----
 
 ## Comment tester l'API ?
 - `https://github.com/J-Dudek/tp1-cybersecu.git`
