@@ -1,29 +1,67 @@
 package tp.securite.tp1.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Book {
-    @Id
-    private Long id;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Size(min = 4, max = 255, message = "Minimum auteurname length: 4 characters")
     private String auteur;
+    @Size(min = 4, max = 255, message = "Minimum titrename length: 4 characters")
     private String titre;
     private int nbpages;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User user;
+    @ManyToMany
+    @JoinTable(name = "book_user",
+            joinColumns = @JoinColumn(name = "id_book"),
+            inverseJoinColumns = @JoinColumn(name = "username_book"))
+    @JsonIgnoreProperties("users")
+    private List<User> users;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getAuteur() {
+        return auteur;
+    }
+
+    public void setAuteur(String auteur) {
+        this.auteur = auteur;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public int getNbpages() {
+        return nbpages;
+    }
+
+    public void setNbpages(int nbpages) {
+        this.nbpages = nbpages;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 }
