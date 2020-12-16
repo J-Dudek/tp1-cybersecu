@@ -1,9 +1,18 @@
 package tp.securite.tp1.repositories;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import tp.securite.tp1.model.Book;
 
-@Repository
-public interface BookRepository extends CrudRepository<Book,Long> {
+import javax.transaction.Transactional;
+import java.util.List;
+
+
+public interface BookRepository extends JpaRepository<Book, Long> {
+    boolean existsByTitreAndAuteur(String titre,String auteur);
+
+    List<Book>findBooksByTitre(String titre);
+    List<Book> findBooksByAuteur(String auteur);
+    @Transactional
+    void deleteBookByAuteurAndTitre(String auteur,String titre);
+
 }
