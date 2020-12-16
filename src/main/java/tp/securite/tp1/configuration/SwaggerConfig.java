@@ -42,11 +42,11 @@ public class SwaggerConfig {
 
   private ApiInfo metadata() {
     return new ApiInfoBuilder()//
-        .title("JSON Web Token Authentication API")//
-        .description("This is a sample JWT authentication service. You can find out more about JWT at [https://jwt.io/](https://jwt.io/). For this sample, you can use the `admin` or `client` users (password: admin and client respectively) to test the authorization filters. Once you have successfully logged in and obtained the token, you should click on the right top button `Authorize` and introduce it with the prefix \"Bearer \".")//
-        .version("1.0.0")//
+        .title("TP de Cybersécurité - Projet Troué")//
+        .description("Apres vous être enregistré ou authentifié , cliquer sur`Authorize` et introduire le token obtenu en reponse précéde de \"Bearer \".")//
+        .version("0.0.1-SNAPSHOT")//
         .license("MIT License").licenseUrl("http://opensource.org/licenses/MIT")//
-        .contact(new Contact(null, null, "mauriurraco@gmail.com"))//
+        .contact(new Contact(null, null, "julien.dudek@lacatholille.fr"))//
         .build();
   }
   
