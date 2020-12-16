@@ -26,16 +26,17 @@ public class SwaggerConfig {
   @Bean
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2)//
-        .select()//
-        .apis(RequestHandlerSelectors.any())//
-        .paths(Predicates.not(PathSelectors.regex("/error")))//
-        .build()//
-        .apiInfo(metadata())//
-        .useDefaultResponseMessages(false)//
-        .securitySchemes(Collections.singletonList(apiKey()))
-        .securityContexts(Collections.singletonList(securityContext()))
-        .tags(new Tag("users", "Operations about users"))//
-        .genericModelSubstitutes(Optional.class);
+            .select()//
+            .apis(RequestHandlerSelectors.any())//
+            .paths(Predicates.not(PathSelectors.regex("/error")))//
+            .build()//
+            .apiInfo(metadata())//
+            .useDefaultResponseMessages(false)//
+            .securitySchemes(Collections.singletonList(apiKey()))
+            .securityContexts(Collections.singletonList(securityContext()))
+            .tags(new Tag("users", "Operations about users"))
+            .tags(new Tag("books","Operations about books"))
+            .genericModelSubstitutes(Optional.class);
 
   }
 
