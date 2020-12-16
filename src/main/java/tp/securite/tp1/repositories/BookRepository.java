@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
     boolean existsByTitreAndAuteur(String titre,String auteur);
-
+    boolean existsById(Long id);
     List<Book>findBooksByTitre(String titre);
     List<Book> findBooksByAuteur(String auteur);
     @Transactional

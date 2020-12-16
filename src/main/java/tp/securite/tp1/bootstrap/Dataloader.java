@@ -41,13 +41,13 @@ public class Dataloader implements CommandLineRunner {
         client.setUsername("user");
         client.setPassword("user");
         client.setEmail("user@email.com");
-        client.setRoles(new ArrayList<>(Collections.singletonList(Role.ROLE_CLIENT)));
+        client.setRoles(new ArrayList<>(Collections.singletonList(Role.ROLE_USER)));
         userService.signup(client);
         User client2 = new User();
         client2.setUsername("user2");
         client2.setPassword("user2");
         client2.setEmail("user2@email.com");
-        client2.setRoles(new ArrayList<>(Collections.singletonList(Role.ROLE_CLIENT)));
+        client2.setRoles(new ArrayList<>(Collections.singletonList(Role.ROLE_USER)));
         userService.signup(client2);
         //Books
         String[] titres = {"La cybersécurité et les décideurs","Tactique Cyber : Le combat numérique","Cyber harcèlement"};

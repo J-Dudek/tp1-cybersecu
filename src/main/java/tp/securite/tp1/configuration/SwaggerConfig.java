@@ -34,8 +34,9 @@ public class SwaggerConfig {
             .useDefaultResponseMessages(false)//
             .securitySchemes(Collections.singletonList(apiKey()))
             .securityContexts(Collections.singletonList(securityContext()))
-            .tags(new Tag("users", "Operations about users"))
-            .tags(new Tag("books","Operations about books"))
+            .tags(new Tag("USERS", "Operations about users"))
+            .tags(new Tag("BOOKS","Operations about books"))
+            .tags(new Tag("LIBRARY","Consult catalogue, user can take a book here"))
             .genericModelSubstitutes(Optional.class);
 
   }
@@ -43,7 +44,7 @@ public class SwaggerConfig {
   private ApiInfo metadata() {
     return new ApiInfoBuilder()//
         .title("TP de Cybersécurité - Projet Troué")//
-        .description("Apres vous être enregistré ou authentifié , cliquer sur`Authorize` et introduire le token obtenu en reponse précéde de \"Bearer \".")//
+        .description("Apres vous être enregistré ou authentifié , cliquer sur`Authorize` et introduire le token obtenu en reponse précédé de `Bearer `.")//
         .version("0.0.1-SNAPSHOT")//
         .license("MIT License").licenseUrl("http://opensource.org/licenses/MIT")//
         .contact(new Contact(null, null, "julien.dudek@lacatholille.fr"))//

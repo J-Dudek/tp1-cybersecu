@@ -1,9 +1,10 @@
 package tp.securite.tp1.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import tp.securite.tp1.exception.CustomException;
 import tp.securite.tp1.model.Book;
 import tp.securite.tp1.model.User;
 import tp.securite.tp1.repositories.BookRepository;
@@ -18,9 +19,6 @@ public class BookService {
 
     @Autowired
     private BookRepository bookRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
@@ -44,4 +42,16 @@ public class BookService {
         return bookRepository.findAllByUsersIs(user);
     }
 
+    public List<Book> listAll() { return bookRepository.findAll();}
+
+    public List<Book> addBook(HttpServletRequest reg, Long idBook){
+        if(!bookRepository.existsById(idBook)){
+            throw new CustomException("Book is'nt available in the library", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        User user = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(reg)));
+        Book book = bookRepository.findById(idBook).get();
+        book.getUsers().add(user);
+        bookRepository.save(book);
+        return myBooks(reg);
+    }
 }
