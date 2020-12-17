@@ -56,12 +56,13 @@ public class BookService {
         return myBooks(reg);
     }
 
-    public List<Book> removeBook(Long idBook,HttpServletRequest reg ){
+    public void removeBook(Long idBook,HttpServletRequest reg ){
         User user = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(reg)));
         Optional<Book> book = bookRepository.findById(idBook);
-        //book.ifPresent(b->book.get().getUsers().remove(user));
-        book.orElseThrow().getUsers().remove(user);
+        if(!book.isPresent()){
+            throw new CustomException("You haven't this book",HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        book.get().getUsers().remove(user);
         book.ifPresent(bb->bookRepository.save(book.get()));
-        return myBooks(reg);
     }
 }

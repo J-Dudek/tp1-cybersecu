@@ -37,13 +37,14 @@ public class BookController {
 
     @DeleteMapping(value ="/remvove/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    @ApiOperation(value = "${BookController.removeBook}", response = BookDataDTO.class, authorizations = { @Authorization(value="apiKey") })
+    @ApiOperation(value = "${BookController.removeBook}", authorizations = { @Authorization(value="apiKey") })
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Something went wrong"), //
-            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 403, message = "Access denied"),
+            @ApiResponse(code = 422,message = "You haven't this book"),//
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public List<BookDataDTO> removeBook(@ApiParam("id Book") @PathVariable Long id,HttpServletRequest req) {
-        return bookService.removeBook(id,req).stream().map(book -> modelMapper.map(book,BookDataDTO.class)).collect(Collectors.toList());
+    public void removeBook(@ApiParam("id Book") @PathVariable Long id,HttpServletRequest req) {
+         bookService.removeBook(id,req);
     }
 
 }
