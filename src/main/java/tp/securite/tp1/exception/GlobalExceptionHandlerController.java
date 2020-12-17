@@ -18,7 +18,7 @@ public class GlobalExceptionHandlerController {
 
     @Bean
     public ErrorAttributes errorAttributes() {
-        // Onn cache l'exception dans l'objet retourné
+        // On cache l'exception dans l'objet retourné
         return new DefaultErrorAttributes() {
             @Override
             public Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {

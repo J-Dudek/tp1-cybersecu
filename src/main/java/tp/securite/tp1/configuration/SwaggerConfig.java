@@ -34,9 +34,9 @@ public class SwaggerConfig {
             .useDefaultResponseMessages(false)//
             .securitySchemes(Collections.singletonList(apiKey()))
             .securityContexts(Collections.singletonList(securityContext()))
-            .tags(new Tag("USERS", "Operations about users"))
-            .tags(new Tag("BOOKS","Operations about books"))
-            .tags(new Tag("LIBRARY","Consult catalogue, user can take a book here"))
+            .tags(new Tag("USERS", "Operations about users."))
+            .tags(new Tag("BOOKS","User operation on their books collection."))
+            .tags(new Tag("LIBRARY","Consult catalogue, user can take a book here."))
             .genericModelSubstitutes(Optional.class);
 
   }

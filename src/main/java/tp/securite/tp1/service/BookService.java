@@ -13,6 +13,7 @@ import tp.securite.tp1.security.JwtTokenProvider;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -52,6 +53,15 @@ public class BookService {
         Book book = bookRepository.findById(idBook).get();
         book.getUsers().add(user);
         bookRepository.save(book);
+        return myBooks(reg);
+    }
+
+    public List<Book> removeBook(Long idBook,HttpServletRequest reg ){
+        User user = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(reg)));
+        Optional<Book> book = bookRepository.findById(idBook);
+        //book.ifPresent(b->book.get().getUsers().remove(user));
+        book.orElseThrow().getUsers().remove(user);
+        book.ifPresent(bb->bookRepository.save(book.get()));
         return myBooks(reg);
     }
 }

@@ -4,9 +4,7 @@ import io.swagger.annotations.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tp.securite.tp1.dto.BookDataDTO;
 import tp.securite.tp1.service.BookService;
 
@@ -37,5 +35,15 @@ public class BookController {
         return bookService.myBooks(req).stream().map(book -> modelMapper.map(book,BookDataDTO.class)).collect(Collectors.toList());
     }
 
+    @DeleteMapping(value ="/remvove/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @ApiOperation(value = "${BookController.removeBook}", response = BookDataDTO.class, authorizations = { @Authorization(value="apiKey") })
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public List<BookDataDTO> removeBook(@ApiParam("id Book") @PathVariable Long id,HttpServletRequest req) {
+        return bookService.removeBook(id,req).stream().map(book -> modelMapper.map(book,BookDataDTO.class)).collect(Collectors.toList());
+    }
 
 }
