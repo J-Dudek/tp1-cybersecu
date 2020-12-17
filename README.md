@@ -1,5 +1,34 @@
 # TP cybersécurité M1 S1
 
+----
+## LIBRAIRIE
+
+Cette application comporte des utilisateurs et des livres.
+Les utilisateurs possedent une liste de livres, ils peuvent en ajouter et en retirer.
+Pour effectuer un ajout il faut que le livre soit référencé dans la librairie.
+
+Il y a actuellement deux roles dans la librairie `ROLE_ADMIN` et `ROLE_USER`.
+
+Lors de l'authentification  sur `/users/signin` un filtre est effectué et un `token` généré est retourné constitué du `role` et de l'`username` de l'utilisateur.
+
+Pour devenir utilisateur: se rendre sur `/users/signup` .
+
+### Scenario
+Un utilisateur peut: 
+- consulter la liste de livre de la bibliotèque.
+- affecter à sa collection un livre existant dans la bibliothèque.
+- supprimer un livre de sa propre collection.
+- consulter la liste de ses livres.
+- supprimer son propre compte.
+
+Un administrateur peut:
+- effectuer les mêmes actions que l'utilisateur.
+- créer, supprimer des livres dans la bibliothèque.
+- autres fonctions à venir.
+
+ 🚧 Toutes les fonctionnalités ne sont pas encore implémentées:  🚧.
+
+
 ## Comment tester l'API ?
 - `https://github.com/J-Dudek/tp1-cybersecu.git`
 - `gh repo clone J-Dudek/tp1-cybersecu`
