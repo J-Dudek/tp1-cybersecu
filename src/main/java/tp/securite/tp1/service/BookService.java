@@ -65,4 +65,11 @@ public class BookService {
         book.get().getUsers().remove(user);
         book.ifPresent(bb->bookRepository.save(book.get()));
     }
+
+    public void addnewBook(Book book){
+        bookRepository.save(book);
+    }
+    public void addNewBooks(List<Book> bookList){
+        bookList.forEach(book -> addnewBook(book));
+    }
 }

@@ -59,7 +59,6 @@ public class Dataloader implements CommandLineRunner {
             book.setTitre(titres[i]);book.setAuteur(auteurs[i]);book.setNbpages(nbPages[i]);
             book.getUsers().add(admin);
             bookList.add(book);
-
         }
         bookService.saveAll(bookList);
 

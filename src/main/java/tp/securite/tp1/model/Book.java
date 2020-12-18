@@ -11,7 +11,7 @@ import java.util.List;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Size(min = 4, max = 255, message = "Minimum auteurname length: 4 characters")
     private String auteur;

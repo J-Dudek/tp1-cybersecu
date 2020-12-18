@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import tp.securite.tp1.dto.BookDataDTO;
+import tp.securite.tp1.dto.BookLightDTO;
+import tp.securite.tp1.model.Book;
 import tp.securite.tp1.service.BookService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +59,28 @@ public class LibraryController {
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public List<BookDataDTO> addBook(@ApiParam("id Book") @PathVariable Long id, HttpServletRequest req){
         return bookService.addBook(req,id).stream().map(book -> modelMapper.map(book,BookDataDTO.class)).collect(Collectors.toList());
+    }
+
+    @PatchMapping(value = "/add/")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${LibraryController.addNewBook}", authorizations = { @Authorization(value="apiKey") })
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public void addNewBook(@ApiParam("The new Book") @RequestBody BookLightDTO bookLightDTO, HttpServletRequest req){
+        bookService.addnewBook(modelMapper.map(bookLightDTO, Book.class));
+    }
+
+    @PatchMapping(value = "/addList/")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${LibraryController.addNewBooks}", authorizations = { @Authorization(value="apiKey") })
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public void addNewBooks(@ApiParam("List of new Book") @RequestBody List<BookLightDTO> list, HttpServletRequest req){
+        bookService.addNewBooks(list.stream().map(bookDataDTO -> modelMapper.map(bookDataDTO,Book.class)).collect(Collectors.toList()));
     }
 
 }
