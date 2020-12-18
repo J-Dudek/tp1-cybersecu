@@ -4,9 +4,13 @@
 ## LIBRAIRIE
 
 Cette application comporte des utilisateurs et des livres.
-Les utilisateurs possedent une liste de livres, ils peuvent en ajouter et en retirer.
-Pour effectuer un ajout il faut que le livre soit référencé dans la librairie.
 
+Les utilisateurs possedent une liste de livres, ils peuvent en ajouter et en retirer.
+Pour effectuer un ajout il faut que le livre soit référencé dans la base de la librairie.
+
+Le but étant qu'un utilisateur ayant un livre physiquement chez lui peut l'ajouter à sa base de données si il est présent dan le réferentiel de la librairie.
+
+En cas de revente/perte etc.. il peut le supprimer de son catalogue personnel.
 Il y a actuellement deux roles dans la librairie `ROLE_ADMIN` et `ROLE_USER`.
 
 Lors de l'authentification  sur `/users/signin` un filtre est effectué et un `token` généré est retourné constitué du `role` et de l'`username` de l'utilisateur.
