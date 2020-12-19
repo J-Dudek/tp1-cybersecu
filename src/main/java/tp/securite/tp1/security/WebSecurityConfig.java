@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 
         // Si on voudrait tester l'application par un navigateur
-        // http.httpBasic();
+        /* http.httpBasic(); */
     }
 
     @Override

@@ -53,7 +53,7 @@ public class Dataloader implements CommandLineRunner {
         String[] titres = {"La cybersécurité et les décideurs","Tactique Cyber : Le combat numérique","Cyber harcèlement"};
         String[] auteurs = {"Marie de Fréminville","Arnaud LE DEZ","Bérengère Stassin"};
         int[] nbPages = {203,148,173};
-        List<Book> bookList = new ArrayList();
+        List<Book> bookList = new ArrayList<>();
         for(int i=0;i<titres.length;i++){
             Book book = new Book();
             book.setTitre(titres[i]);book.setAuteur(auteurs[i]);book.setNbpages(nbPages[i]);

@@ -1,4 +1,4 @@
-package tp.securite.tp1.Controllers;
+package tp.securite.tp1.controllers;
 
 import io.swagger.annotations.*;
 import org.modelmapper.ModelMapper;

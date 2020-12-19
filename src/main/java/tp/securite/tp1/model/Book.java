@@ -24,7 +24,7 @@ public class Book {
     private List<User> users;
 
     public Book() {
-        this.users = new ArrayList();
+        this.users = new ArrayList<>();
     }
 
     public Long getId() {

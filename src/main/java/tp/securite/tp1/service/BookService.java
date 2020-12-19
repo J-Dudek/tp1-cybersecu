@@ -43,14 +43,16 @@ public class BookService {
     public List<Book> listAll() { return bookRepository.findAll();}
 
     public List<Book> addBook(HttpServletRequest reg, Long idBook){
-        if(!bookRepository.existsById(idBook)){
+        User user = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(reg)));
+        Optional<Book> book = bookRepository.findById(idBook);
+        if(book.isPresent()){
+            Book book1= book.get();
+            user.getBooks().add(book1);
+            userRepository.save(user);
+            return myBooks(reg);
+        }else{
             throw new CustomException("Book is'nt available in the library", HttpStatus.UNPROCESSABLE_ENTITY);
         }
-        User user = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(reg)));
-        Book book = bookRepository.findById(idBook).get();
-        user.getBooks().add(book);
-        userRepository.save(user);
-        return myBooks(reg);
     }
 
     public void removeBook(Long idBook,HttpServletRequest reg ){
@@ -63,9 +65,7 @@ public class BookService {
             if(!theBook.isPresent()){
                 throw new CustomException("You Haven't this book",HttpStatus.NO_CONTENT);
             }else{
-                System.out.println("avt: "+user.getBooks().size());
                 user.getBooks().remove(theBook.get());
-                System.out.println("apre: "+user.getBooks().size());
                 userRepository.save(user);
             }
         }
