@@ -38,7 +38,7 @@ Un administrateur peut:
 - `https://github.com/J-Dudek/tp1-cybersecu.git`
 - `gh repo clone J-Dudek/tp1-cybersecu`
 #### OU
-- `docker run -it -p 8282:8282  julienm1/tp1-cybersecurite:latest`
+- `docker run -it -p 8282:8282  julienm1/tp1-cybersecurite:clean`
 #### Ensuite ?
 Après avoir lancé l'application :
 - Se rendre sur http://localhost:8282/swagger-ui.html , vous aurez alors accès aux différentes fonctionnalités de l'API.
