@@ -19,15 +19,16 @@ Pour devenir utilisateur: se rendre sur `/users/signup` .
 
 ### Scenario
 Un utilisateur peut: 
-- consulter la liste de livre de la bibliotèque.
+- consulter la liste de livre de la base.
 - affecter à sa collection un livre existant dans la bibliothèque.
 - supprimer un livre de sa propre collection.
 - consulter la liste de ses livres.
+- modifier son mot de passe.
 - supprimer son propre compte.
 
 Un administrateur peut:
 - effectuer les mêmes actions que l'utilisateur.
-- créer, supprimer des livres dans la bibliothèque.
+- créer,modifier et supprimer des livres dans la bibliothèque.
 - autres fonctions à venir.
 
  🚧 Toutes les fonctionnalités ne sont pas encore implémentées:  🚧.
