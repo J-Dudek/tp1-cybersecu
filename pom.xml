@@ -113,7 +113,7 @@
 						<image>registry.hub.docker.com/julienm1/tp1-cybersecurite</image>
 						<tags>
 							<!--<tag>${project.version}</tag> -->
-							<tag>latest</tag>
+							<tag>clean</tag>
 						</tags>
 					</to>
 					<container>
