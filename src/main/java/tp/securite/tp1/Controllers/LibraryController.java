@@ -83,4 +83,15 @@ public class LibraryController {
         bookService.addNewBooks(list.stream().map(bookDataDTO -> modelMapper.map(bookDataDTO,Book.class)).collect(Collectors.toList()));
     }
 
+    @PatchMapping(value = "/update/")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${LibraryController.updateBook}", authorizations = { @Authorization(value="apiKey") })
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public void updateBook(@ApiParam("The Book updated be careful with the ID") @RequestBody BookDataDTO bookDataDTO, HttpServletRequest req){
+        bookService.updateBook(modelMapper.map(bookDataDTO, Book.class));
+    }
+
 }

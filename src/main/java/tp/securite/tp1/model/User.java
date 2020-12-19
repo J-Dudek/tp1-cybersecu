@@ -29,12 +29,22 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     List<Role> roles;
 
-    @ManyToMany(mappedBy = "users")
-    @JsonIgnoreProperties("users")
+    @ManyToMany
+    @JoinTable(name = "user_book",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    @JsonIgnoreProperties("books")
     private List<Book> books;
 
     public User(){
-        this.books = new ArrayList();
+        this.books= new ArrayList<>();
+    }
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     public Integer getId() {
@@ -75,5 +85,17 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                ", books=" + books +
+                '}';
     }
 }

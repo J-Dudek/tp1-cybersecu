@@ -5,7 +5,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import tp.securite.tp1.dto.UserDataDTO;
 import tp.securite.tp1.dto.UserResponseDTO;
 import tp.securite.tp1.model.User;
 import tp.securite.tp1.service.UserService;
@@ -28,9 +27,7 @@ public class UserController {
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 422, message = "Invalid username/password supplied")})
-    public String login(//
-                        @ApiParam("Username") @RequestParam String username, //
-                        @ApiParam("Password") @RequestParam String password) {
+    public String login(@ApiParam("Password") @RequestParam String password,@ApiParam("Username") @RequestParam String username) {
         return userService.signin(username, password);
     }
 
@@ -40,21 +37,31 @@ public class UserController {
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 422, message = "Username is already in use")})
-    public String signup(@ApiParam("Signup User") @RequestBody UserDataDTO user) {
+    public String signup(@ApiParam("Signup User") @RequestBody UserResponseDTO user) {
         return userService.signup(modelMapper.map(user, User.class));
     }
 
-    @DeleteMapping(value = "/{username}")
+    @DeleteMapping(value = "/users/{username}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${UserController.delete}", authorizations = { @Authorization(value="apiKey") })
+    @ApiOperation(value = "${UserController.deleteUser}", authorizations = { @Authorization(value="apiKey") })
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 404, message = "The user doesn't exist"), //
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public String delete(@ApiParam("Username") @PathVariable String username) {
-        userService.delete(username);
-        return username;
+    public void deleteUser(@ApiParam("Username") @PathVariable String username) {
+        userService.deleteUser(username);
+    }
+
+    @DeleteMapping(value = "/{username}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @ApiOperation(value = "${UserController.deleteMe}", authorizations = { @Authorization(value="apiKey") })
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public void deleteMe( HttpServletRequest req) {
+        userService.deleteMe(req);
     }
 
     @GetMapping(value = "/{username}")
@@ -85,4 +92,19 @@ public class UserController {
     public String refresh(HttpServletRequest req) {
         return userService.refresh(req.getRemoteUser());
     }
+
+
+
+    @PatchMapping("/update/{pass}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @ApiOperation(value = "${UserController.updatePassword}", response = UserResponseDTO.class, authorizations = { @Authorization(value="apiKey") })
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public void updatePassword(@ApiParam("Signup User") @PathVariable String pass,HttpServletRequest req){
+        userService.updatePassword(pass,req);
+    }
+
+
 }

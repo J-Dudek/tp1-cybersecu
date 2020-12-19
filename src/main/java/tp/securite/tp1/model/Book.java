@@ -19,10 +19,7 @@ public class Book {
     private String titre;
     private int nbpages;
 
-    @ManyToMany
-    @JoinTable(name = "book_user",
-            joinColumns = @JoinColumn(name = "id_book"),
-            inverseJoinColumns = @JoinColumn(name = "username_book"))
+    @ManyToMany(mappedBy = "books")
     @JsonIgnoreProperties("users")
     private List<User> users;
 
@@ -70,4 +67,14 @@ public class Book {
         this.users = users;
     }
 
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", auteur='" + auteur + '\'' +
+                ", titre='" + titre + '\'' +
+                ", nbpages=" + nbpages +
+                ", users=" + users +
+                '}';
+    }
 }

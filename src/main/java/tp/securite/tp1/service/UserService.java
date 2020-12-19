@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tp.securite.tp1.exception.CustomException;
 import tp.securite.tp1.model.User;
+import tp.securite.tp1.repositories.BookRepository;
 import tp.securite.tp1.repositories.UserRepository;
 import tp.securite.tp1.security.JwtTokenProvider;
 
@@ -19,6 +20,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -48,8 +52,8 @@ public class UserService {
         }
     }
 
-    public void delete(String username) {
-        userRepository.deleteByUsername(username);
+    public void deleteMe(HttpServletRequest req) {
+        userRepository.delete(userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req))));
     }
 
     public User search(String username) {
@@ -68,5 +72,20 @@ public class UserService {
         return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
     }
 
+    public void deleteUser(String username){
+        User user = userRepository.findByUsername(username);
+        bookRepository.findAllByUsersIs(user).stream().map(book -> book.getUsers().remove(user));
+        userRepository.deleteByUsername(username);
+    }
 
+    public void saveOrUpdate(User user){
+        userRepository.save(user);
+    }
+
+
+     public void updatePassword(String pass,HttpServletRequest req){
+         User user = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
+         user.setPassword(passwordEncoder.encode(pass));
+         userRepository.save(user);
+     }
 }

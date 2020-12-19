@@ -1,9 +1,6 @@
 package tp.securite.tp1.dto;
 
 import io.swagger.annotations.ApiModelProperty;
-import tp.securite.tp1.model.Role;
-
-import java.util.List;
 
 public class UserResponseDTO {
 

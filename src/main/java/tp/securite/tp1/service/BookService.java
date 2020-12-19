@@ -2,7 +2,6 @@ package tp.securite.tp1.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 import tp.securite.tp1.exception.CustomException;
 import tp.securite.tp1.model.Book;
@@ -27,8 +26,6 @@ public class BookService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     public List<Book> search(String titre){
         return bookRepository.findBooksByTitre(titre);
@@ -51,8 +48,8 @@ public class BookService {
         }
         User user = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(reg)));
         Book book = bookRepository.findById(idBook).get();
-        book.getUsers().add(user);
-        bookRepository.save(book);
+        user.getBooks().add(book);
+        userRepository.save(user);
         return myBooks(reg);
     }
 
@@ -60,10 +57,19 @@ public class BookService {
         User user = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(reg)));
         Optional<Book> book = bookRepository.findById(idBook);
         if(!book.isPresent()){
-            throw new CustomException("You haven't this book",HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new CustomException("This book not exist",HttpStatus.UNPROCESSABLE_ENTITY);
+        }else{
+            Optional<Book> theBook = user.getBooks().stream().filter(book1 -> book1.getId().equals(idBook)).findFirst();
+            if(!theBook.isPresent()){
+                throw new CustomException("You Haven't this book",HttpStatus.NO_CONTENT);
+            }else{
+                System.out.println("avt: "+user.getBooks().size());
+                user.getBooks().remove(theBook.get());
+                System.out.println("apre: "+user.getBooks().size());
+                userRepository.save(user);
+            }
         }
-        book.get().getUsers().remove(user);
-        book.ifPresent(bb->bookRepository.save(book.get()));
+
     }
 
     public void addnewBook(Book book){
@@ -71,5 +77,15 @@ public class BookService {
     }
     public void addNewBooks(List<Book> bookList){
         bookList.forEach(book -> addnewBook(book));
+    }
+
+    public void updateBook(Book book){
+        Optional<Book> bookCible = bookRepository.findById(book.getId());
+        if(bookCible.isPresent()){
+            bookRepository.save(book);
+        }else{
+            throw new CustomException("This id don't exist",HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+
     }
 }
