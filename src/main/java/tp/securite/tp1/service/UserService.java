@@ -94,8 +94,13 @@ public class UserService {
 
      public void updatePassword(String pass,HttpServletRequest req){
          User user = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
-         user.setPassword(passwordEncoder.encode(pass));
-         userRepository.save(user);
+         if(isValidPassword(pass)){
+             user.setPassword(passwordEncoder.encode(pass));
+             userRepository.save(user);
+         }else{
+             throw new CustomException("Password not valid: Must have [0-9] [a-z] [A-Z] [€@#$%^&+=] , no space and between 8 and 20 characters.", HttpStatus.CONFLICT);
+         }
+
      }
 
      private boolean isValidPassword(String password){
