@@ -31,21 +31,21 @@ public class Dataloader implements CommandLineRunner {
     private void loadData(){
         //ADMIN
         User admin = new User();
-        admin.setUsername("admin");
-        admin.setPassword("admin");
+        admin.setUsername("Gertrude");
+        admin.setPassword("Cyb&rCQrizTh3");
         admin.setEmail("admin@email.com");
         admin.setRoles(new ArrayList<>(Collections.singletonList(Role.ROLE_ADMIN)));
         userService.signup(admin);
         //Users
         User client = new User();
         client.setUsername("user");
-        client.setPassword("user");
+        client.setPassword("Us€r1ObOoT");
         client.setEmail("user@email.com");
         client.setRoles(new ArrayList<>(Collections.singletonList(Role.ROLE_USER)));
         userService.signup(client);
         User client2 = new User();
         client2.setUsername("user2");
-        client2.setPassword("user2");
+        client2.setPassword("Us€r2ObOoT");
         client2.setEmail("user2@email.com");
         client2.setRoles(new ArrayList<>(Collections.singletonList(Role.ROLE_USER)));
         userService.signup(client2);

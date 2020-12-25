@@ -14,6 +14,8 @@ import tp.securite.tp1.repositories.UserRepository;
 import tp.securite.tp1.security.JwtTokenProvider;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService {
@@ -33,6 +35,8 @@ public class UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    private static final String PASS_RGEX="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[€@#$%^&+=])(?=\\S+$).{8,20}$";
+
     public String signin(String username, String password) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
@@ -44,9 +48,14 @@ public class UserService {
 
     public String signup(User user) {
         if (!userRepository.existsByUsername(user.getUsername())) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-            return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+            if(isValidPassword(user.getPassword())){
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+                userRepository.save(user);
+                return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+            }else{
+                throw new CustomException("Password not valid: Must have [0-9] [a-z] [A-Z] [€@#$%^&+=] , no space and between 8 and 20 characters.", HttpStatus.CONFLICT);
+            }
+
         } else {
             throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
         }
@@ -87,5 +96,15 @@ public class UserService {
          User user = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
          user.setPassword(passwordEncoder.encode(pass));
          userRepository.save(user);
+     }
+
+     private boolean isValidPassword(String password){
+        if(password==null){
+            return false;
+        }else{
+            Pattern p = Pattern.compile(PASS_RGEX);
+            Matcher m = p.matcher(password);
+            return m.matches();
+        }
      }
 }

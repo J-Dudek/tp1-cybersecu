@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import tp.securite.tp1.dto.UserDTO;
 import tp.securite.tp1.dto.UserResponseDTO;
 import tp.securite.tp1.model.User;
 import tp.securite.tp1.service.UserService;
@@ -36,8 +37,9 @@ public class UserController {
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 409, message = "Password not valid: Must have [0-9] [a-z] [A-Z] [€@#$%^&+=] , no space and between 8 and 20 characters."),
             @ApiResponse(code = 422, message = "Username is already in use")})
-    public String signup(@ApiParam("Signup User") @RequestBody UserResponseDTO user) {
+    public String signup(@ApiParam("Signup User") @RequestBody UserDTO user) {
         return userService.signup(modelMapper.map(user, User.class));
     }
 
