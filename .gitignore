@@ -27,3 +27,11 @@ hs_err_pid*
 HELP.md
 
 tp1.iml
+
+*.gz
+
+.settings/
+
+.project
+
+.classpath
