@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class UserDTO {
 
-    @ApiModelProperty(position = 0)
+    @ApiModelProperty()
     private String username;
     @ApiModelProperty(position = 1)
     private String email;

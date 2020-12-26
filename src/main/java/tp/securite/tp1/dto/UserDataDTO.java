@@ -7,7 +7,7 @@ import java.util.List;
 
 public class UserDataDTO {
 
-    @ApiModelProperty(position = 0)
+    @ApiModelProperty()
     private String username;
     @ApiModelProperty(position = 1)
     private String email;

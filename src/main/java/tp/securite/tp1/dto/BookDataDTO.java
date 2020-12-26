@@ -4,13 +4,13 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class BookDataDTO {
 
-    @ApiModelProperty(position = 0)
+    @ApiModelProperty()
     private String auteur;
     @ApiModelProperty(position = 1)
     private String titre;
     @ApiModelProperty(position = 2)
     private int nbpages;
-    @ApiModelProperty(position = 4)
+    @ApiModelProperty(position = 3)
     private Long id;
 
     public String getAuteur() {

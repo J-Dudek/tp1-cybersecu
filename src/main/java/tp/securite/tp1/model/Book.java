@@ -71,7 +71,7 @@ public class Book implements Serializable {
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + Long.valueOf(id) +
+                "id=" + id.toString() +
                 ", auteur='" + auteur + '\'' +
                 ", titre='" + titre + '\'' +
                 ", nbpages=" + nbpages +

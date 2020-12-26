@@ -28,7 +28,7 @@ public class User implements Serializable {
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    List<Role> roles;
+    private List<Role> roles;
 
     @ManyToMany
     @JoinTable(name = "user_book",

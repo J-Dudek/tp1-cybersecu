@@ -3,7 +3,7 @@ package tp.securite.tp1.dto;
 import io.swagger.annotations.ApiModelProperty;
 
 public class BookLightDTO {
-    @ApiModelProperty(position = 0)
+    @ApiModelProperty()
     private String auteur;
     @ApiModelProperty(position = 1)
     private String titre;
