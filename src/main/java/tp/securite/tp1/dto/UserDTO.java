@@ -1,11 +1,8 @@
 package tp.securite.tp1.dto;
 
 import io.swagger.annotations.ApiModelProperty;
-import tp.securite.tp1.model.Role;
 
-import java.util.List;
-
-public class UserDataDTO {
+public class UserDTO {
 
     @ApiModelProperty()
     private String username;
@@ -13,8 +10,6 @@ public class UserDataDTO {
     private String email;
     @ApiModelProperty(position = 2)
     private String password;
-    @ApiModelProperty(position = 3)
-    List<Role> roles;
 
     public String getUsername() {
         return username;
@@ -40,11 +35,4 @@ public class UserDataDTO {
         this.password = password;
     }
 
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
 }

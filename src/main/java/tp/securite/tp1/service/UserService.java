@@ -8,12 +8,15 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tp.securite.tp1.exception.CustomException;
+import tp.securite.tp1.model.Role;
 import tp.securite.tp1.model.User;
 import tp.securite.tp1.repositories.BookRepository;
 import tp.securite.tp1.repositories.UserRepository;
 import tp.securite.tp1.security.JwtTokenProvider;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Collections;
 
 @Service
 public class UserService {
@@ -45,6 +48,7 @@ public class UserService {
     public String signup(User user) {
         if (!userRepository.existsByUsername(user.getUsername())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRoles(new ArrayList<>(Collections.singletonList(Role.ROLE_USER)));
             userRepository.save(user);
             return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
         } else {
