@@ -20,7 +20,7 @@ public class Book implements Serializable {
     private String titre;
     private int nbpages;
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(mappedBy = "books",fetch = FetchType.LAZY)
     @JsonIgnoreProperties("users")
     private List<User> users;
 

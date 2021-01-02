@@ -9,12 +9,14 @@ import tp.securite.tp1.dto.BookDataDTO;
 import tp.securite.tp1.service.BookService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/books")
 @Api(tags = "BOOKS")
+@Transactional
 public class BookController {
 
     @Autowired

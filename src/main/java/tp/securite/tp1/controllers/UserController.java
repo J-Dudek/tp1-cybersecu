@@ -11,10 +11,12 @@ import tp.securite.tp1.model.User;
 import tp.securite.tp1.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 @RestController
 @RequestMapping("/users")
 @Api(tags = "USERS")
+@Transactional
 public class UserController {
 
     @Autowired

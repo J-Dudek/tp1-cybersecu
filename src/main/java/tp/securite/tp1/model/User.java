@@ -30,7 +30,7 @@ public class User implements Serializable {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_book",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id"))
