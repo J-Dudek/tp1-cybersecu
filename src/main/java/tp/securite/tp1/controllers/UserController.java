@@ -11,10 +11,12 @@ import tp.securite.tp1.model.User;
 import tp.securite.tp1.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 @RestController
 @RequestMapping("/users")
 @Api(tags = "USERS")
+@Transactional
 public class UserController {
 
     @Autowired
@@ -103,6 +105,7 @@ public class UserController {
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 409, message = "Password not valid: Must have [0-9] [a-z] [A-Z] [€@#$%^&+=] , no space and between 8 and 20 characters."),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public void updatePassword(@ApiParam("Signup User") @PathVariable String pass,HttpServletRequest req){
         userService.updatePassword(pass,req);

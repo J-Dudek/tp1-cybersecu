@@ -28,10 +28,13 @@ HELP.md
 
 tp1.iml
 
-bin/
+*.gz
 
 .settings/
 
+.project
+
 .classpath
 
-.project
+bin/
+

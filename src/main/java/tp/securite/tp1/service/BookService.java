@@ -76,7 +76,7 @@ public class BookService {
         bookRepository.save(book);
     }
     public void addNewBooks(List<Book> bookList){
-        bookList.forEach(book -> addnewBook(book));
+        bookList.forEach(this::addnewBook);
     }
 
     public void updateBook(Book book){

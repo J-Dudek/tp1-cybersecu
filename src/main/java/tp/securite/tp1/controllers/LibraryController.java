@@ -11,12 +11,14 @@ import tp.securite.tp1.model.Book;
 import tp.securite.tp1.service.BookService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/library")
 @Api(tags = "LIBRARY")
+@Transactional
 public class LibraryController {
 
     @Autowired

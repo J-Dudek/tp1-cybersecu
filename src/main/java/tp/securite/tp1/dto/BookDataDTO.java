@@ -10,8 +10,8 @@ public class BookDataDTO {
     private String titre;
     @ApiModelProperty(position = 2)
     private int nbpages;
-    @ApiModelProperty(position = 4)
-    private int id;
+    @ApiModelProperty(position = 3)
+    private Long id;
 
     public String getAuteur() {
         return auteur;
@@ -37,11 +37,11 @@ public class BookDataDTO {
         this.nbpages = nbpages;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

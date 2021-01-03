@@ -69,6 +69,29 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
 			<version>2.9.2</version>
+			<exclusions>
+				<exclusion>
+					<groupId>io.swagger</groupId>
+					<artifactId>swagger-models</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.swagger</groupId>
+					<artifactId>swagger-annotations</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-models</artifactId>
+			<version>1.6.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>1.6.0</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<!-- Generate beautiful documentation from a Swagger-compliant API. -->
@@ -113,7 +136,7 @@
 						<image>registry.hub.docker.com/julienm1/tp1-cybersecurite</image>
 						<tags>
 							<!--<tag>${project.version}</tag> -->
-							<tag>latest</tag>
+							<tag>clean</tag>
 						</tags>
 					</to>
 					<container>
