@@ -1,3 +1,4 @@
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=J-Dudek_tp1-cybersecu)](https://sonarcloud.io/dashboard?id=J-Dudek_tp1-cybersecu)
 # TP cybersécurité M1 S1
 La branche [`Clean`](https://github.com/J-Dudek/tp1-cybersecu/tree/Clean "Clean" ) est une branche sans failles volontaire. Etant perfectible, n'hesitez pas à me créer des issues afin d'ameliorer tout cela.
 
