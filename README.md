@@ -66,6 +66,11 @@ Actuellement aucune vérification de l'adresse mail est effectuée lors de l'enr
 Par défault et en l'état actuel de mes connaissances en sécurité je pense que la note de 4/5 est en adéquation avec l'application fournie.
 
 ## Troisième Jalon : Documentation<a id="jalon3"></a>
+### Gestion des mots de passe
+Volontairement 3 utilisateurs sont crées au démarrage de l'application, leur mot de passe apparait donc dans le code et le readme.
+Afin de démontrer le niveau de sécurité des mots de passe, le choix d'un mot de passe identique pour ces trois comptes a été fait.
+En vous rendant sur http://localhost:8282/h2-console (JDBC_URL:jdbc:h2:mem:cybersecu , username:admin , password:admin) et en executant ```select * from user```vous pourrez constater le hashage et salage du mot de passe.
+
 ## SUJET
 > ---
 >
