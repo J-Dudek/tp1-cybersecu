@@ -28,7 +28,7 @@ public class Dataloader implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private final String TEXT = "Cyb&rCQrizTh3";
+    private static final String TEXT = "Cyb&rCQrizTh3";
 
     @Override
     public void run(String... args) throws Exception {
