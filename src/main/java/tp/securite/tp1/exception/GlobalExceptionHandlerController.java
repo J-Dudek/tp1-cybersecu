@@ -1,5 +1,6 @@
 package tp.securite.tp1.exception;
 
+import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,7 @@ public class GlobalExceptionHandlerController {
         // On cache l'exception dans l'objet retourné
         return new DefaultErrorAttributes() {
             @Override
-            public Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {
+            public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions includeStackTrace) {
                 Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, includeStackTrace);
                 errorAttributes.remove("exception");
                 return errorAttributes;
