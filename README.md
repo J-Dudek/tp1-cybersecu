@@ -67,7 +67,7 @@ Par défault et en l'état actuel de mes connaissances en sécurité je pense qu
 
 ## Troisième Jalon : Documentation<a id="jalon3"></a>
 
-### - Gestion des mots de passe
+### - Gestion des mots de passe (spring-boot-starter-security)
 Volontairement 3 utilisateurs sont crées au démarrage de l'application, leur mot de passe apparait donc dans le code et le readme.
 Afin de démontrer le niveau de sécurité des mots de passe, le choix d'un mot de passe identique pour ces trois comptes a été fait.
 En vous rendant sur http://localhost:8282/h2-console (JDBC_URL:jdbc:h2:mem:cybersecu , username:admin , password:admin) et en executant ```select * from user```vous pourrez constater le hashage et salage du mot de passe.
@@ -76,6 +76,54 @@ En vous rendant sur http://localhost:8282/h2-console (JDBC_URL:jdbc:h2:mem:cyber
 Spring Boot JPA est une spécification Java pour la gestion des données relationnelles dans les applications Java. Il nous permet d'accéder et de conserver les données entre l'objet / classe Java et la base de données relationnelle. JPA suit le mappage objet-relation (ORM). C'est un ensemble d'interfaces. Il fournit également une API EntityManager d' exécution pour le traitement des requêtes et des transactions sur les objets par rapport à la base de données. Il utilise un langage de requête orienté objet indépendant de la plate-forme JPQL (Java Persistent Query Language).
 JPA convient aux applications complexes non orientées performances. Le principal avantage de JPA par rapport à JDBC est que, dans JPA, les données sont représentées par des objets et des classes tandis que dans JDBC les données sont représentées par des tables et des enregistrements. Il utilise POJO pour représenter des données persistantes qui simplifient la programmation de la base de données.
 Une explication du fonctionnement globale et disponible [ici](https://www.javatpoint.com/spring-boot-jpa) .
+
+### - JWT TOKEN , ```http.crsf.disable()```(spring-boot-starter-security)
+- Architecture de Spring security
+![Spring Security](./docs/architecture-spring-security.png)
+Lorsque vous ajoutez le framework Spring Security à votre application, il enregistre automatiquement une chaîne de filtres qui intercepte toutes les demandes entrantes. Cette chaîne se compose de différents filtres, et chacun d'eux gère un cas d'utilisation particulier.
+
+Après avoir configuré le gestionnaire d'authentification, nous devons maintenant configurer la sécurité Web. Nous implémentons une API REST et avons besoin d'une authentification sans état avec un jeton JWT; par conséquent, nous devons définir les options suivantes:
+- Enable CORS and disable CSRF
+- Set session management to stateless.
+- Set unauthorized requests exception handler.
+- Set permissions on endpoints.
+- Add JWT token filter.
+
+C'est donc pour cette raison que vous trouverez dans le package ```security```  :
+- Interface principale qui charge des données spécifiques à l'utilisateur :
+ ```java
+ public class MyUserDetails implements UserDetailsService 
+ ```
+ - Une classe qui va génerer le JWT contenant le rôle de l'utilisateur chargé par la classe précédente
+ ```java
+ public class JwtTokenProvider
+ ```
+ Cette classe gère également la validité temporel et structurel du token et la vérification de l'identité de l'user au cours du parcours.
+ 
+ - Deux classes qui vont effectuées les filtres HTTP des requêtes :
+  ```java
+ public class JwtTokenFilterConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> 
+ ````
+ Une classe de base pour SecurityConfigurer qui permet aux sous-classes d'implémenter uniquement les méthodes qui les intéressent. Elle fournit également un mécanisme pour utiliser SecurityConfigurer et, une fois terminé, accéder au SecurityBuilder en cours de configuration.
+ ```java
+ public class JwtTokenFilter extends OncePerRequestFilter
+ ```
+ Classe de base de filtre qui vise à garantir une exécution unique par envoi de requête, sur n'importe quel conteneur de servlet. Il fournit une méthode doFilterInternal avec les arguments HttpServletRequest et HttpServletResponse.
+ ```java
+ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
+ ```
+Fournit une classe de base pratique pour créer une instance WebSecurityConfigurer. L'implémentation permet la personnalisation en remplaçant les méthodes.
+C'est ici qu'est désactivé crsf et que certains endpoints sont autorisés tel que :
+```java
+http.authorizeRequests()//
+                .antMatchers("/users/signin").permitAll()//
+                .antMatchers("/users/signup").permitAll()//
+                .antMatchers("/h2-console/**/**").permitAll()
+                // On desactive les autres
+                .anyRequest().authenticated();
+```
+
+
 
 ## SUJET
 > ---
