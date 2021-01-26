@@ -8,6 +8,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tp.securite.tp1.exception.CustomException;
+import tp.securite.tp1.model.Book;
 import tp.securite.tp1.model.Role;
 import tp.securite.tp1.model.User;
 import tp.securite.tp1.repositories.BookRepository;
@@ -17,6 +18,7 @@ import tp.securite.tp1.security.JwtTokenProvider;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -88,7 +90,8 @@ public class UserService {
 
     public void deleteUser(String username){
         User user = userRepository.findByUsername(username);
-        bookRepository.findAllByUsersIs(user).stream().map(book -> book.getUsers().remove(user));
+        List<Book> usersBooks = bookRepository.findAllByUsersIs(user);
+        usersBooks.stream().forEach(book -> book.getUsers().remove(user));
         userRepository.deleteByUsername(username);
     }
 
