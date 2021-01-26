@@ -68,8 +68,10 @@ Après avoir lancé l'application :
 ### - BDD (spring-boot-starter-data-jpa)
 Spring Boot JPA est une spécification Java pour la gestion des données relationnelles dans les applications Java. Il nous permet d'accéder et de conserver les données entre l'objet / classe Java et la base de données relationnelle. JPA suit le mappage objet-relation (ORM). C'est un ensemble d'interfaces. Il fournit également une API EntityManager d' exécution pour le traitement des requêtes et des transactions sur les objets par rapport à la base de données. Il utilise un langage de requête orienté objet indépendant de la plate-forme JPQL (Java Persistent Query Language).
 JPA convient aux applications complexes non orientées performances. Le principal avantage de JPA par rapport à JDBC est que, dans JPA, les données sont représentées par des objets et des classes tandis que dans JDBC les données sont représentées par des tables et des enregistrements. Il utilise POJO pour représenter des données persistantes qui simplifient la programmation de la base de données.
-Une explication du fonctionnement globale et disponible [ici](https://www.javatpoint.com/spring-boot-jpa) .
-__Principe de Sécurité :__ 
+Une explication du fonctionnement globale et disponible [ici](https://www.javatpoint.com/spring-boot-jpa).
+
+
+__Principe de Sécurité :__
 - La disponibilité : maintenir le bon fonctionnement du système d'information.
 - La non répudiation : garantir qu'une transaction ne peut être niée.
 
