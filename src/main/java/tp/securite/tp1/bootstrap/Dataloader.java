@@ -2,10 +2,12 @@ package tp.securite.tp1.bootstrap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import tp.securite.tp1.model.Book;
 import tp.securite.tp1.model.Role;
 import tp.securite.tp1.model.User;
+import tp.securite.tp1.repositories.UserRepository;
 import tp.securite.tp1.service.BookService;
 import tp.securite.tp1.service.UserService;
 
@@ -21,6 +23,10 @@ public class Dataloader implements CommandLineRunner {
     UserService userService;
     @Autowired
     BookService bookService;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -32,10 +38,11 @@ public class Dataloader implements CommandLineRunner {
         //ADMIN
         User admin = new User();
         admin.setUsername("Gertrude");
-        admin.setPassword("Cyb&rCQrizTh3");
+        admin.setPassword(passwordEncoder.encode("Cyb&rCQrizTh3"));
         admin.setEmail("admin@email.com");
+        List<Role> roles= new ArrayList();
         admin.setRoles(new ArrayList<>(Collections.singletonList(Role.ROLE_ADMIN)));
-        userService.signup(admin);
+        userRepository.save(admin);
         //Users
         User client = new User();
         client.setUsername("user");
