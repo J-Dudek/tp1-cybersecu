@@ -40,7 +40,6 @@ public class Dataloader implements CommandLineRunner {
         admin.setUsername("Gertrude");
         admin.setPassword(passwordEncoder.encode("Cyb&rCQrizTh3"));
         admin.setEmail("admin@email.com");
-        List<Role> roles= new ArrayList();
         admin.setRoles(new ArrayList<>(Collections.singletonList(Role.ROLE_ADMIN)));
         userRepository.save(admin);
         //Users
