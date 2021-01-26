@@ -64,6 +64,12 @@ Après avoir lancé l'application :
 
 
 ## Troisième Jalon : Documentation<a id="jalon3"></a>
+>- Pour chaque fonctionnalité de sécurité que vous ajoutez (ORM par exemple) :
+>    - Vous décrivez de quoi la fonctionnalité protège votre code
+>    - Vous décrivez comment la fonctionnalité protège votre code
+>    - Vous définissez le(s) mécanisme(s) ET le(s) principe(s) de sécurité que votre code implique ;
+>    - Décrivez les tests que vous feriez pour vérifier que cet endpoint (cette page web) n'est pas vulnérable (Les tests vont vous permettre de renforcer >l'implémentation des principes de dev sécurisés)
+>   - (En bonus) Quel impact aurait eu cette vulnérabilité sur votre métier (Injection SQL => Fuite de données => Incident diplomatique => vous fermez votre >business)
 
 ### - BDD (spring-boot-starter-data-jpa)
 Spring Boot JPA est une spécification Java pour la gestion des données relationnelles dans les applications Java. Il nous permet d'accéder et de conserver les données entre l'objet / classe Java et la base de données relationnelle. JPA suit le mappage objet-relation (ORM). C'est un ensemble d'interfaces. Il fournit également une API EntityManager d' exécution pour le traitement des requêtes et des transactions sur les objets par rapport à la base de données. Il utilise un langage de requête orienté objet indépendant de la plate-forme JPQL (Java Persistent Query Language).
@@ -71,14 +77,20 @@ JPA convient aux applications complexes non orientées performances. Le principa
 Une explication du fonctionnement globale et disponible [ici](https://www.javatpoint.com/spring-boot-jpa).
 
 
-__Principe de Sécurité :__
+__Principes de Sécurité :__
 - La disponibilité : maintenir le bon fonctionnement du système d'information.
 - La non répudiation : garantir qu'une transaction ne peut être niée.
+
+Une non disponibilité des services pour un moment donné engendrerai la perte de confiance des utilisateurs et leur départ pour une autre application.
+
 
 ### - Gestion des mots de passe (spring-boot-starter-security)
 Volontairement 3 utilisateurs sont crées au démarrage de l'application, leur mot de passe apparait donc dans le code et le readme.
 Afin de démontrer le niveau de sécurité des mots de passe, le choix d'un mot de passe identique pour ces trois comptes a été fait.
 En vous rendant sur http://localhost:8282/h2-console (JDBC_URL:jdbc:h2:mem:cybersecu , username:admin , password:admin) et en executant ```select * from user```vous pourrez constater le hashage et salage du mot de passe.
+
+- Le hashage/salage des mots de passes permet qu'en cas d'intrusion et/ou fuite de données il n'y ai pas d'usurpation des comptes utilisateurs.
+Se protéger contre ces attaques permet une __intégrité__ de la plateforme. Une faille de sécurité au niveau des mots de passe aurait comme conséquence une perte de crédibilité et donc une perte des utilisateurs.
 
 ### - JWT TOKEN , ```http.crsf.disable()```(spring-boot-starter-security)
 - Architecture de Spring security
@@ -125,10 +137,19 @@ http.authorizeRequests()//
                 // On desactive les autres
                 .anyRequest().authenticated();
 ```
-__Principe de Sécurité :__ 
+Le JWT sécurise le protocole sans état en envoyant les informations pour l’authentification directement lors de la requête, le JSON Web Token envoie les informations lors du Cross Origin Resource Sharing. Cela présente un énorme avantage par rapport aux cookies, qui ne sont généralement pas envoyés dans cette procédure.Il a aussi l'avantage d'être multi-framework et permet donc plusieurs type d'appels à notre API.
+
+__Principes de Sécurité :__ 
 - L'authentification : assurer que seules les personnes autorisées aient accès aux ressources.
 - La confidentialité : rendre l'information inintelligible à d'autres personnes que les seuls acteurs d’une transaction. 
 - L'intégrité : garantir que les données sont bien celles que l'on croit être.
+
+Ces mécanismes de protections permettent de se protéger contre les attaques de type IDOR et les XSS.
+
+Afin de tester et vérifier la présence d'une faille d'authentification il serait possible d'executer : `curl -X DELETE "http://localhost:8282/users/{username}" -H "accept: */*"`avec l'username cible pour supprimer un utilisateur. Cela testerait l'autorisation (endpoint autorisé uniquement à un administrateur) et l'authentification.
+
+L'utilisation de [Sonarcloud](https://sonarcloud.io/dashboard?id=J-Dudek_tp1-cybersecu) m'a permis également d'optimiser certaine partie de mon code en me rappelant des règles que l'on a tendance à oublier.
+Enfin, j'ai trouvé cette expérience enrichissante et ce module très intéressant.
 
 ## SUJET
 > ---
