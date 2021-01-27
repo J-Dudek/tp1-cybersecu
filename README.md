@@ -70,6 +70,14 @@ Après avoir lancé l'application :
 >    - Vous définissez le(s) mécanisme(s) ET le(s) principe(s) de sécurité que votre code implique ;
 >    - Décrivez les tests que vous feriez pour vérifier que cet endpoint (cette page web) n'est pas vulnérable (Les tests vont vous permettre de renforcer >l'implémentation des principes de dev sécurisés)
 >   - (En bonus) Quel impact aurait eu cette vulnérabilité sur votre métier (Injection SQL => Fuite de données => Incident diplomatique => vous fermez votre >business)
+### - Gestion des exceptions
+
+La garantie de __gestion d'erreur fiable__ par l'implémentation "custom" des remontées d'exception afin de ne pas remonter d'information structurelle mais uniquement ce qui est nécessaire. Par exemple en cas de soucis de login/mot de passe: ```"Invalid username/password supplied"```
+```
+├── exception
+│   ├── CustomException.java
+│   └── GlobalExceptionHandlerController.java
+ ````
 
 ### - BDD (spring-boot-starter-data-jpa)
 Spring Boot JPA est une spécification Java pour la gestion des données relationnelles dans les applications Java. Il nous permet d'accéder et de conserver les données entre l'objet / classe Java et la base de données relationnelle. JPA suit le mappage objet-relation (ORM). C'est un ensemble d'interfaces. Il fournit également une API EntityManager d' exécution pour le traitement des requêtes et des transactions sur les objets par rapport à la base de données. Il utilise un langage de requête orienté objet indépendant de la plate-forme JPQL (Java Persistent Query Language).
@@ -137,7 +145,7 @@ http.authorizeRequests()//
                 // On desactive les autres
                 .anyRequest().authenticated();
 ```
-Le JWT sécurise le protocole sans état en envoyant les informations pour l’authentification directement lors de la requête, le JSON Web Token envoie les informations lors du Cross Origin Resource Sharing. Cela présente un énorme avantage par rapport aux cookies, qui ne sont généralement pas envoyés dans cette procédure.Il a aussi l'avantage d'être multi-framework et permet donc plusieurs type d'appels à notre API.
+Le JWT sécurise le protocole sans état en envoyant les informations pour l’authentification directement lors de la requête, le JSON Web Token envoie les informations lors du Cross Origin Resource Sharing. Cela présente un énorme avantage par rapport aux cookies, qui ne sont généralement pas envoyés dans cette procédure.Il a aussi l'avantage d'être multi-framework et permet donc plusieurs type d'appels à notre API.__La garantie de segmentation__ et le __principe de moindre privilège__ sont ainsi appliqué au mieux par cette structure.
 
 __Principes de Sécurité :__ 
 - L'authentification : assurer que seules les personnes autorisées aient accès aux ressources.
@@ -148,8 +156,7 @@ Ces mécanismes de protections permettent de se protéger contre les attaques de
 
 Afin de tester et vérifier la présence d'une faille d'authentification il serait possible d'executer : `curl -X DELETE "http://localhost:8282/users/{username}" -H "accept: */*"`avec l'username cible pour supprimer un utilisateur. Cela testerait l'autorisation (endpoint autorisé uniquement à un administrateur) et l'authentification.
 
-L'utilisation de [Sonarcloud](https://sonarcloud.io/dashboard?id=J-Dudek_tp1-cybersecu) m'a permis également d'optimiser certaine partie de mon code en me rappelant des règles que l'on a tendance à oublier.
-Enfin, j'ai trouvé cette expérience enrichissante et ce module très intéressant.
+L'utilisation de [Sonarcloud](https://sonarcloud.io/dashboard?id=J-Dudek_tp1-cybersecu) m'a permis également d'optimiser certaine partie de mon code en me rappelant des règles que l'on a tendance à oublier. Il aide également à une __garantie de pérénité__ afin de minimiser au maximum __la surface d'ataque__.
 
 ## SUJET
 > ---
