@@ -152,7 +152,7 @@ __Principes de Sécurité :__
 - La confidentialité : rendre l'information inintelligible à d'autres personnes que les seuls acteurs d’une transaction. 
 - L'intégrité : garantir que les données sont bien celles que l'on croit être.
 
-Ces mécanismes de protections permettent de se protéger contre les attaques de type IDOR et les XSS.
+Ces mécanismes de protections permettent de se protéger contre les attaques de type IDOR et de limiter l'impact des attaques XSS.
 
 Afin de tester et vérifier la présence d'une faille d'authentification il serait possible d'executer : `curl -X DELETE "http://localhost:8282/users/{username}" -H "accept: */*"`avec l'username cible pour supprimer un utilisateur. Cela testerait l'autorisation (endpoint autorisé uniquement à un administrateur) et l'authentification.
 
