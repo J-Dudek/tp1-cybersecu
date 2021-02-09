@@ -163,10 +163,16 @@ Ces mécanismes de protections permettent de se protéger contre les attaques de
 
 Afin de tester et vérifier la présence d'une faille d'authentification il serait possible d'executer : `curl -X DELETE "http://localhost:8282/users/{username}" -H "accept: */*"`avec l'username cible pour supprimer un utilisateur. Cela testerait l'autorisation (endpoint autorisé uniquement à un administrateur) et l'authentification.
 
+### Sécurisation de l'image docker
+Afin de générer mon image docker j'ai utilisé le plugin [JIB](https://github.com/GoogleContainerTools/jib) qui permet de paramètrer dans le pom.xml ce que l'on souhaite.
+
+J'utilise ainsi un port défini et un ```user``` nommé ```nobody``` présent dans quasiment toutes les distributions Linux et sans dossier home.
+
+
+### Plugins utilisés
 L'utilisation de [Sonarcloud](https://sonarcloud.io/dashboard?id=J-Dudek_tp1-cybersecu) et de [CodeQL](https://github.com/J-Dudek/tp1-cybersecu/actions?query=workflow%3ACodeQL) m'ont permis également d'optimiser certaines parties de mon code en me rappelant des règles que l'on a tendance à oublier. Ils aident également à une __garantie de pérénité__ afin de minimiser au maximum __la surface d'ataque__.
 
 Comme dans chacun de mes projets j'ai utilisé [Dependabot](https://github.com/J-Dudek/tp1-cybersecu/security/dependabot) qui permet un scan régulier des dépendances embarquées.Chaque jour, elle analyse tes fichiers de dépendances et recherche celles qui peuvent être mise à jour. Si l'une des dépendances est obsolète, Dependabot ouvre un Pull Request pour la remplacer. À cette heure je n'ai jamais reçus d'alerte concernant un projet personnel mais parfois pour des projets forkés.
-
 
 
 ## SUJET
