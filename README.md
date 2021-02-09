@@ -174,6 +174,9 @@ L'utilisation de [Sonarcloud](https://sonarcloud.io/dashboard?id=J-Dudek_tp1-cyb
 
 Comme dans chacun de mes projets j'ai utilisé [Dependabot](https://github.com/J-Dudek/tp1-cybersecu/security/dependabot) qui permet un scan régulier des dépendances embarquées.Chaque jour, elle analyse tes fichiers de dépendances et recherche celles qui peuvent être mise à jour. Si l'une des dépendances est obsolète, Dependabot ouvre un Pull Request pour la remplacer. À cette heure je n'ai jamais reçus d'alerte concernant un projet personnel mais parfois pour des projets forkés.
 
+Amélioration prévue prochainement: sécurisation du container Docker afin que l'utilisateur n'ai pas les droits ROOT , sujet demandant une étude afin de mettre en pratique en ayant acqui et en maitrisant l'information. Le principe de __moindre privilège__ ne s'applique pas qu'à la couche appliccative mais aussi à la couche système. 
+
+
 
 ## SUJET
 > ---
